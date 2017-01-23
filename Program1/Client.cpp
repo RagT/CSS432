@@ -123,7 +123,7 @@ int main(int argc, char * argv[]) {
     		//single write: allocates an nbufs-sized array of data buffers, 
     		//and thereafter calls write( ) to send this array, (i.e., all data buffers) at once.
     		case 3:
-    			write(clientSd, databuf, nbufs * bufsize); 
+    			write(clientSd, databuffer, nbufs * bufsize); 
     		break;
     	}
     }
@@ -133,7 +133,7 @@ int main(int argc, char * argv[]) {
 
     //Recieve acknowledge from server on how many times read was called
     int readCount;
-    read(clientSd, &count, sizeOf(readCount));
+    read(clientSd, &readCount, sizeOf(readCount));
 
     //Record round trip end time (RTT)
     gettimeofday(&end, NULL);

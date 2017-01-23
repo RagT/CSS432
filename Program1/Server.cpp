@@ -34,7 +34,7 @@ void handlerFunction(int arg) {
 	for(int i = 0; i < repetitions; i++) {
 		int nRead = 0;
 		while(nRead < BUFSIZE) {
-			nRead += read(fd, dataBuff, BUFSIZE - nRead);
+			nRead += read(newSd, dataBuff, BUFSIZE - nRead);
 			count++;
 		}
 	}
