@@ -29,6 +29,7 @@ int main(int argc, char * argv[]) {
 		cerr << "serverIp 		A server Ip name" << endl;
 		cerr << "types 			type of transfer scenario: 1,2,or 3" << endl;
 		cerr << endl;
+        return -1;
 	}
 
 	int port = atoi(argv[1]);
