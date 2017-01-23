@@ -70,7 +70,7 @@ int main(int argc, char * argv[]) {
 	bzero((char*)&sendSockAddr, sizeof(sendSockAddr));
 	sendSockAddr.sin_family = AF_INET; // Address Family Internet
     sendSockAddr.sin_addr.s_addr =
-    	inet_addr( inet_ntoa( *(struct in_addr*)*host->h_addr_list ) );
+    	inet_addr( inet_ntoa( *(struct in_addr*) (*host->h_addr_list) ) );
     sendSockAddr.sin_port = htons(port);
 
     //Open a stream oriented socket with Internet addresss family
