@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fcntl.h>
 using namespace std;
 
 const int BUFSIZE = 1500;
