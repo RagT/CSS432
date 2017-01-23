@@ -65,11 +65,11 @@ int main(int argc, char * argv[]) {
 	}
 
 	sockaddr_in sendSockAddr;
-	bzero((char*)sendSockAddr, sizeOf(sendSockAddr));
+	bzero((char*)sendSockAddr, sizeof(sendSockAddr));
 	sendSockAddr.sin_family = AF_INET; // Address Family Internet
     sendSockAddr.sin_addr.s_addr =
     	inet_addr( inet_ntoa( *(struct in_addr*)*host->h_addr_list ) );
-    sendSockAddr.sin_port = htons( server_port );
+    sendSockAddr.sin_port = htons(port);
 
     //Open a stream oriented socket with Internet addresss family
     int clientSd = socket(AF_INET, SOCK_STREAM, 0);
@@ -80,7 +80,7 @@ int main(int argc, char * argv[]) {
     }
 
     //Connect socket to the server
-    if(connect(clientSd, (sockaddr*)&sendSockAddr, sizeOf(sendSockAddr)) < 0) {
+    if(connect(clientSd, (sockaddr*)&sendSockAddr, sizeof(sendSockAddr)) < 0) {
     	cerr << "Failed to connect to server" << endl;
     	close(clientSd);
     	return -1;
@@ -104,26 +104,29 @@ int main(int argc, char * argv[]) {
     		//Multiple writes: invokes the write( ) system call for each data buffer,
     		//thus resulting in calling as many write( )s as the number of data buffers, 
     		//(i.e., nbufs).
-    		case 1:
+    		case 1: {
     			for(int j = 0; j < nbufs; j++) {
     				write(clientSd, databuffer[j], bufsize);
     			}
+            }
     		break;
     		//writev:  allocates an array of iovec data structures, each having its 
     		//*iov_base field point to a different data buffer as well as storing the buffer size in its iov_len field;
     		//and thereafter calls writev( ) to send all data buffers at once.
-    		case 2:
+    		case 2: {
     			struct iovec vector[nbufs];
 			     for (int j = 0; j < nbufs; j++) {
 			       vector[j].iov_base = databuffer[j];
 			       vector[j].iov_len = bufsize;
 			     }
 			     writev(clientSd, vector, nbufs);
+            }
     		break;
     		//single write: allocates an nbufs-sized array of data buffers, 
     		//and thereafter calls write( ) to send this array, (i.e., all data buffers) at once.
-    		case 3:
+    		case 3: {
     			write(clientSd, databuffer, nbufs * bufsize); 
+            }
     		break;
     	}
     }
@@ -133,7 +136,7 @@ int main(int argc, char * argv[]) {
 
     //Recieve acknowledge from server on how many times read was called
     int readCount;
-    read(clientSd, &readCount, sizeOf(readCount));
+    read(clientSd, &readCount, sizeof(readCount));
 
     //Record round trip end time (RTT)
     gettimeofday(&end, NULL);
