@@ -65,7 +65,7 @@ int main(int argc, char * argv[]) {
 	}
 
 	sockaddr_in sendSockAddr;
-	bzero((char*)sendSockAddr, sizeof(sendSockAddr));
+	bzero((char*)&sendSockAddr, sizeof(sendSockAddr));
 	sendSockAddr.sin_family = AF_INET; // Address Family Internet
     sendSockAddr.sin_addr.s_addr =
     	inet_addr( inet_ntoa( *(struct in_addr*)*host->h_addr_list ) );

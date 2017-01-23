@@ -81,7 +81,7 @@ int main(int argc, char * argv[]) {
 	}
 
 	sockaddr_in acceptSockAddr;
-	bzero((char*)acceptSockAddr, sizeof(acceptSockAddr));
+	bzero((char*)&acceptSockAddr, sizeof(acceptSockAddr));
 	acceptSockAddr.sin_family = AF_INET;
 	acceptSockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	acceptSockAddr.sin_port = htons(port);
