@@ -101,7 +101,7 @@ int main(int argc, char * argv[]) {
 	setsockopt(serverSd, SOL_SOCKET, SO_REUSEADDR, (char*)&on, sizeof(int));
 
 	//Bind socket to local address
-	if(bind(serverSd, (sockaddr *)&acceptSockAddr, sizeof(&acceptSockAddr)) < 0) {
+	if(bind(serverSd, (sockaddr *)&acceptSockAddr, sizeof(acceptSockAddr)) < 0) {
 		cerr << "Unable to bind socket to local address" << endl;
 		cerr << strerror(errno) << endl;
 		close(serverSd);
