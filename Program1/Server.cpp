@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fcntl.h>
+#include <signal.h>
 using namespace std;
 
 const int BUFSIZE = 1500;
