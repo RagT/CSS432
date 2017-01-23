@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <errno.h>
 using namespace std;
 
 const int BUFSIZE = 1500;
@@ -83,6 +84,7 @@ int main(int argc, char * argv[]) {
     //Connect socket to the server
     if(connect(clientSd, (sockaddr*)&sendSockAddr, sizeof(sendSockAddr)) < 0) {
     	cerr << "Failed to connect to server" << endl;
+        cerr << strerror(errno) << endl;
     	close(clientSd);
     	return -1;
     }
