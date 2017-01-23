@@ -102,6 +102,7 @@ int main(int argc, char * argv[]) {
 	//Bind socket to local address
 	if(bind(serverSd, (sockaddr *)&acceptSockAddr, sizeof(&acceptSockAddr)) < 0) {
 		cerr << "Unable to bind socket to local address" << endl;
+		cerr << strerror(errno) << endl;
 		close(serverSd);
 		return -1;
 	}
