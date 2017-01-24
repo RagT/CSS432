@@ -37,13 +37,11 @@ void handlerFunction(int arg) {
 	//Get number of reads
 	for(int i = 0; i < repetitions; i++) {
 	  cout << "In loop" << endl;
-		int nRead = 0;
-		while(nRead < BUFSIZE) {
-			nRead += read(newSd, dataBuff, BUFSIZE - nRead);
-			cout << nRead << endl;
-			count++;
-		}
-		cout << "nread = " << nRead << endl;
+	        for ( int nRead = 0; 
+            nRead < BUFSIZE; 
+		      ++count ){
+		  nRead += read( newSd, dataBuff, BUFSIZE - nRead );
+		     cout << "nread = " << nRead << endl;}
 	}
 
 	//End the timer
@@ -119,7 +117,7 @@ int main(int argc, char * argv[]) {
 	//specific to this connection request.
 	sockaddr_in newSockAddr;
     socklen_t newSockAddrSize = sizeof(newSockAddr);
-    int newSd = accept( serverSd, (sockaddr*)&newSockAddr, &newSockAddrSize);
+     newSd = accept( serverSd, (sockaddr*)&newSockAddr, &newSockAddrSize);
 
     signal(SIGIO, handlerFunction);
 
