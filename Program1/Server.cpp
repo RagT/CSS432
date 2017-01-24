@@ -108,7 +108,7 @@ int main(int argc, char * argv[]) {
 		return -1;
 	}
 
-	//Instruct OS to listen to up to fve connection requests from clients
+	//Instruct OS to listen to up to five connection requests from clients
 	listen(serverSd, 5);
 
 	//Recieve a request from a client by calling accept that will return a new socket

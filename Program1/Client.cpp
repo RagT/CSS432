@@ -73,7 +73,7 @@ int main(int argc, char * argv[]) {
     	inet_addr( inet_ntoa( *(struct in_addr*) (*host->h_addr_list) ) );
     sendSockAddr.sin_port = htons(port);
 
-    //Open a stream oriented socket with Internet addresss family
+    //Open a stream oriented socket with Internet address family
     int clientSd = socket(AF_INET, SOCK_STREAM, 0);
     if(clientSd < 0) {
     	cerr << "Could not open a socket" << endl;
