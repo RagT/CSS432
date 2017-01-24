@@ -109,7 +109,7 @@ int main(int argc, char * argv[]) {
         //(i.e., nbufs).
     	if(type == 1) {
             for ( int j = 0; j < nbufs; j++ ) {
-                write(socketSd, databuf[j], bufsize);
+                write(clientSd, databuffer[j], bufsize);
             }  
         }
         //writev: allocates an array of iovec data structures, each having its 
