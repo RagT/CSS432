@@ -124,11 +124,13 @@ int main(int argc, char * argv[]) {
                 vector[j].iov_len = bufsize;
             }
             writev(clientSd, vector, nbufs);
+            cout << "write completed" << endl;
         }
         //single write: allocates an nbufs-sized array of data buffers, and thereafter calls
         // write( ) to send this array, (i.e., all data buffers) at once.
         if(type == 3) {
             write(clientSd, databuffer, nbufs * bufsize);
+            cout << "write completed" << endl;
         }
     }
 
