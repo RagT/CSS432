@@ -104,35 +104,31 @@ int main(int argc, char * argv[]) {
     gettimeofday(&start, NULL);
     cout << "entering loop" << endl;
     for(int i = 0; i < repetitions; i++) {
-    	switch(type){
-    		//Multiple writes: invokes the write( ) system call for each data buffer,
-    		//thus resulting in calling as many write( )s as the number of data buffers, 
-    		//(i.e., nbufs).
-    		case 1: {
-    			for(int j = 0; j < nbufs; j++) {
-    				write(clientSd, databuffer[j], bufsize);
-    			}
+        //multiple writes: invokes the write( ) system call for each data buffer, 
+        //thus resulting in calling as many write( )s as the number of data buffers, 
+        //(i.e., nbufs).
+    	if(type == 1) {
+            for ( int j = 0; j < nbufs; j++ ) {
+                write(socketSd, databuf[j], bufsize);
+            }  
+        }
+        //writev: allocates an array of iovec data structures, each having its 
+        //*iov_base field point to a different data buffer as well as storing the buffer
+        // size in its iov_len field; and thereafter calls writev( ) 
+        //to send all data buffers at once.
+        if(type == 2) {
+            struct iovec vector[nbufs];
+            for(int j = 0; j < nbufs; j++) {
+                vector[j].iov_base = databuffer[j];
+                vector[j].iov_len = bufsize;
             }
-    		break;
-    		//writev:  allocates an array of iovec data structures, each having its 
-    		//*iov_base field point to a different data buffer as well as storing the buffer size in its iov_len field;
-    		//and thereafter calls writev( ) to send all data buffers at once.
-    		case 2: {
-    			struct iovec vector[nbufs];
-			     for (int j = 0; j < nbufs; j++) {
-			       vector[j].iov_base = databuffer[j];
-			       vector[j].iov_len = bufsize;
-			     }
-			     writev(clientSd, vector, nbufs);
-            }
-    		break;
-    		//single write: allocates an nbufs-sized array of data buffers, 
-    		//and thereafter calls write( ) to send this array, (i.e., all data buffers) at once.
-    		case 3: {
-    			write(clientSd, databuffer, nbufs * bufsize); 
-            }
-    		break;
-    	}
+            writev(clientSd, vector, nbufs);
+        }
+        //single write: allocates an nbufs-sized array of data buffers, and thereafter calls
+        // write( ) to send this array, (i.e., all data buffers) at once.
+        if(type == 3) {
+            write(clientSd, databuffer, nbufs * bufsize);
+        }
     }
 
     //write lap time
