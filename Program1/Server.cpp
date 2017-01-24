@@ -23,23 +23,27 @@ int serverSd; //Socket descriptor
 int newSd;	//connection request specific socket descriptor
 
 void handlerFunction(int arg) {
+  cout << "Interrupt started" <<endl;
 	char dataBuff[BUFSIZE];
-
+	cout << "dataBuff allocated" <<endl;
 	struct timeval start;
 	struct timeval end;
 	long timeElapsed;
 
 	//Start the timer
 	gettimeofday(&start, NULL);
-
+	cout << "timer started" << endl;
 	int count = 0;
 	//Get number of reads
 	for(int i = 0; i < repetitions; i++) {
+	  cout << "In loop" << endl;
 		int nRead = 0;
 		while(nRead < BUFSIZE) {
 			nRead += read(newSd, dataBuff, BUFSIZE - nRead);
+			cout << nRead << endl;
 			count++;
 		}
+		cout << "nread = " << nRead << endl;
 	}
 
 	//End the timer

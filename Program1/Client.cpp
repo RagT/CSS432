@@ -110,7 +110,8 @@ int main(int argc, char * argv[]) {
     	if(type == 1) {
             for ( int j = 0; j < nbufs; j++ ) {
                 write(clientSd, databuffer[j], bufsize);
-            }  
+            }
+	    cout << "write completed" << endl;
         }
         //writev: allocates an array of iovec data structures, each having its 
         //*iov_base field point to a different data buffer as well as storing the buffer
