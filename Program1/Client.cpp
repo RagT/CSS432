@@ -37,7 +37,7 @@ int main(int argc, char * argv[]) {
 	int repetitions = atoi(argv[2]);
 	int nbufs = atoi(argv[3]);
 	int bufsize = atoi(argv[4]);
-	const char * serverIp = argv[5];
+	const char * serverIp = argv[5] + '\0';
 	int type = atoi(argv[6]);
 
 	if(port < 1024 || port > 65536) {
@@ -89,6 +89,7 @@ int main(int argc, char * argv[]) {
     	return -1;
     }
 
+    cout << "Connected!" << endl;
     //Allocate databuffer
     char databuffer[nbufs][bufsize];
 
@@ -101,7 +102,7 @@ int main(int argc, char * argv[]) {
 
     //Start time
     gettimeofday(&start, NULL);
-
+    cout << "entering loop" << endl;
     for(int i = 0; i < repetitions; i++) {
     	switch(type){
     		//Multiple writes: invokes the write( ) system call for each data buffer,
