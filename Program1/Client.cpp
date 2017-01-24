@@ -111,7 +111,7 @@ int main(int argc, char * argv[]) {
             for ( int j = 0; j < nbufs; j++ ) {
                 write(clientSd, databuffer[j], bufsize);
             }
-	    cout << "write completed" << endl;
+	    //cout << "write completed" << endl;
         }
         //writev: allocates an array of iovec data structures, each having its 
         //*iov_base field point to a different data buffer as well as storing the buffer
@@ -124,13 +124,13 @@ int main(int argc, char * argv[]) {
                 vector[j].iov_len = bufsize;
             }
             writev(clientSd, vector, nbufs);
-            cout << "write completed" << endl;
+            //cout << "write completed" << endl;
         }
         //single write: allocates an nbufs-sized array of data buffers, and thereafter calls
         // write( ) to send this array, (i.e., all data buffers) at once.
         if(type == 3) {
             write(clientSd, databuffer, nbufs * bufsize);
-            cout << "write completed" << endl;
+            //cout << "write completed" << endl;
         }
     }
 
