@@ -9,9 +9,9 @@ SERVERIP=$1
 for nBuf in 15 30 60 100
 do 
 	bufSize=$((1500/$nBuf))
+  echo ""
 	for type in 1 2 3
 	do
-    echo ""
 		echo "nBuf = $nBuf, bufSize = $bufSize, test type = $type"
 		./Client $PORTNUM $REPETITIONS $nBuf $bufSize $SERVERIP $type
     #Wait to make sure server is ready
