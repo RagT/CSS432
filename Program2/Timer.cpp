@@ -18,7 +18,7 @@ void Timer::start( ) {
   gettimeofday( &startTime, NULL );
 }
 
-// Get the diff between the start and the curren time -------------------------
+// Get the diff between the start and the current time -------------------------
 long Timer::lap( ) {
   gettimeofday( &endTime, NULL );
   long interval =

@@ -4,10 +4,11 @@
 
 using namespace std;
 
-#define PORT 23460       // my UDP port
+#define PORT 51020       // my UDP port
 #define MAX 20000        // times of message transfer
 #define MAXWIN 30        // the maximum window size
 #define LOOP 10          // loop in test 4 and 5
+#define TIMEOUT 1500     //Timeout for stop-and-wait
 
 // client packet sending functions
 void clientUnreliable( UdpSocket &sock, const int max, int message[] );
@@ -146,20 +147,61 @@ void serverUnreliable( UdpSocket &sock, const int max, int message[] ) {
 
 // Test2: stop and wait client send
 int clientStopWait( UdpSocket &sock, const int max, int message[] ) {
+  cerr << "client stop-and-wait test" << endl;
 
+  Timer *ackTimer = new Timer();
+
+  for(int i = 0; i < max; i++) {
+    message[0] = i;                             //message[0] has a sequence #
+    sock.sendTo( ( char * )message, MSGSIZE ); // udp message send
+
+    int numRetransmissions = 0;
+    ackTimer->start();
+
+    //Check for ack from server
+    while(sock.pollRecvFrom() < 1) {
+        //have we timed out?
+        if(ackTimer->lap() > TIMEOUT) {
+          numRetransmissions++;
+          //Resend message
+          sock.sendTo( ( char * )message, MSGSIZE ); // udp message send
+          //Restart timer
+          ackTimer->start();
+        }
+    }
+
+    //Read ack
+    sock.recvFrom( ( char * ) message, MSGSIZE );   // udp message receive
+    //Delete ptr
+    delete ackTimer;
+  }
+  return numRetransmissions;
 }
 
 // Test2: server stop and wait recieve
 void serverReliable( UdpSocket &sock, const int max, int message[] ) {
+  cerr << "server reliable test" << endl;
 
+  for(int seqNum = 0; seqNum < max; seqNum++) {
+    //Keep recieving messages and sending acks until server
+    // and client are at same sequence number 
+    do {
+      sock.recvFrom( ( char * ) message, MSGSIZE );   // udp message receive
+      if(message[0] == seqNum) {
+        //send ack
+        sock.ackTo( (char *) &seqNum, sizeof(seqNum));
+      }
+    //Check for wrong sequence number on message
+    }while(message[0] != seqNum);
+  }
 }
 
 // Test3: sliding window client
 int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int windowSize ) {
-
+  cerr << "client sliding window test" << endl;
 }
 
 // Test3: sliding window server
 void serverEarlyRetrans( UdpSocket &sock, const int max, int message[], int windowSize ) {
-  
+  cerr << "server sliding window test" << endl;
 }
