@@ -130,7 +130,7 @@ void clientUnreliable( UdpSocket &sock, const int max, int message[] ) {
   for ( int i = 0; i < max; i++ ) {
     message[0] = i;                            // message[0] has a sequence #
     sock.sendTo( ( char * )message, MSGSIZE ); // udp message send
-    cerr << "message = " << message[0] << endl;
+    //cerr << "message = " << message[0] << endl;
   }
 }
 
@@ -141,7 +141,7 @@ void serverUnreliable( UdpSocket &sock, const int max, int message[] ) {
   // receive message[] max times
   for ( int i = 0; i < max; i++ ) {
     sock.recvFrom( ( char * ) message, MSGSIZE );   // udp message receive
-    cerr << message[0] << endl;                     // print out message
+    //cerr << message[0] << endl;                     // print out message
   }
 }
 
@@ -172,10 +172,7 @@ int clientStopWait( UdpSocket &sock, const int max, int message[] ) {
 
     //Read ack
     sock.recvFrom( ( char * ) message, MSGSIZE );   // udp message receive
-
-    //cerr << "message = " << message[0] << endl;
   }
-  cerr << "client done" << endl;
   //Delete ptr
   delete ackTimer;
   return numRetransmissions;
