@@ -206,11 +206,42 @@ int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int wind
   
   Timer *ackTimer = new Timer();
   int numRetransmissions = 0; 
-  int lastAckRecieved;   //last ack recieved
-  int nextAckFrame = 0; //next frame waiting acknowledge
-  int nextFrameToSend = 0; //next frame to send
-  
-  
+  int ack = -1;                          // prepare a space to receive ack
+  int ackSeq = 0;                       // the ack sequence expected to receive 
+
+  // transfer message[] max times
+  for ( int sequence = 0; sequence < max || ackSeq < max; ) {  
+    //send till sliding window full
+    if ( ackSeq + windowSize > sequence && sequence < max ) {
+      message[0] = sequence;                    
+      sock.sendTo( (char *)message, MSGSIZE );  
+      // check if ack arrived and if ack is the same as ackSeq, increment ackSeq
+      if(sock.pollRecvFrom() > 0) {
+        sock.recvFrom( (char * ) &ack, sizeof(ack));
+        if(ack == ackSeq) {
+          ackSeq++;
+        }
+      }
+      // increment sequence
+      sequence++;
+    } else { 
+      //window is full
+
+      //check for ack until timeout
+      ackTimer->start();
+      while(sock.pollRecvFrom() < 1) {
+        if(ackTimer->lap() >= TIMEOUT) {
+          //Timeout (ack lost)
+          sequence = ackSeq;
+        }
+      }
+      //Ack recieved late
+      sock.recvFrom( (char * ) &ack, sizeof(ack));
+      if(ack >= ackSeq) {
+        ackSeq = ack + 1;
+      }
+    }
+  }
   delete ackTimer;
   return numRetransmissions;
 }
@@ -218,8 +249,9 @@ int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int wind
 // Test3: sliding window server
 void serverEarlyRetrans( UdpSocket &sock, const int max, int message[], int windowSize ) {
   cerr << "server sliding window test" << endl;
-  
-  vector<bool> recieved(max, false); //recieved[i] == true if if message[i] is recieved init to false
+
+  //recieved[i] == true if if message[i] is recieved init to false
+  vector<bool> recieved(max, false); 
   for(int seqNum = 0; seqNum < max;) {
     sock.recvFrom( (char *)message, MSGSIZE );
     if(message[0] == seqNum) {
