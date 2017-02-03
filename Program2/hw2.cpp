@@ -5,7 +5,7 @@
 using namespace std;
 
 #define PORT 51020       // my UDP port
-#define MAX 20000        // times of message transfer
+#define MAX 200000        // times of message transfer
 #define MAXWIN 30        // the maximum window size
 #define LOOP 10          // loop in test 4 and 5
 #define TIMEOUT 1500     //Timeout for stop-and-wait
@@ -192,8 +192,7 @@ void serverReliable( UdpSocket &sock, const int max, int message[] ) {
       sock.recvFrom( ( char * ) message, MSGSIZE );   // udp message receive
       if(message[0] == seqNum) {
         //send ack
-        sock.ackTo( (char *) &seqNum, sizeof(seqNum));
-        //cerr << message[0] << endl;   
+        sock.ackTo( (char *) &seqNum, sizeof(seqNum));   
       }
     //Check for wrong sequence number on message
     }while(message[0] != seqNum);
@@ -202,8 +201,6 @@ void serverReliable( UdpSocket &sock, const int max, int message[] ) {
 
 // Test3: sliding window client
 int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int windowSize ) {
-  cerr << "client sliding window test" << endl;
-  
   Timer *ackTimer = new Timer();
   int numRetransmissions = 0; 
   int ack = -1;                          // prepare a space to receive ack
@@ -214,12 +211,10 @@ int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int wind
     //send till sliding window full
     if ( ackSeq + windowSize > sequence && sequence < max ) {
       message[0] = sequence;                    
-      sock.sendTo( (char *)message, MSGSIZE );
-      cerr << "Sending message with seqNum: " << sequence << endl;  
+      sock.sendTo( (char *)message, MSGSIZE );  
       // check if ack arrived and if ack is the same as ackSeq, increment ackSeq
       if(sock.pollRecvFrom() > 0) {
         sock.recvFrom( (char * ) &ack, sizeof(ack));
-        cerr << "Recieved ack for seqNum: " << ack << endl;
         if(ack == ackSeq) {
           ackSeq++;
         }
@@ -234,12 +229,12 @@ int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int wind
       while(sock.pollRecvFrom() < 1) {
         if(ackTimer->lap() >= TIMEOUT) {
           //Timeout (ack lost)
+          numRetransmissions +=  sequence - ackSeq;
           sequence = ackSeq;
         }
       }
       //Ack recieved late
       sock.recvFrom( (char * ) &ack, sizeof(ack));
-      cerr << "Recieved ack late for seqNum: " << ack << endl;
       if(ack >= ackSeq) {
         ackSeq = ack + 1;
       }
@@ -251,18 +246,13 @@ int clientSlidingWindow( UdpSocket &sock, const int max, int message[], int wind
 
 // Test3: sliding window server
 void serverEarlyRetrans( UdpSocket &sock, const int max, int message[], int windowSize ) {
-  cerr << "server sliding window test" << endl;
 
   //recieved[i] == true if if message[i] is recieved init to false
   vector<bool> recieved(max, false); 
   for(int seqNum = 0; seqNum < max;) {
     sock.recvFrom( (char *)message, MSGSIZE );
-    cerr << "Recieved message for seqNum: " << message[0] << endl;
     if(message[0] == seqNum) {
       recieved[seqNum] = true;
-      while(recieved[seqNum]) {
-        seqNum++;
-      }
     } else {
       recieved[message[0]] = true;
     }
@@ -273,9 +263,12 @@ void serverEarlyRetrans( UdpSocket &sock, const int max, int message[], int wind
     //Send back acks for recieved messages in window
     for(int i = seqNum; i < maxSeq; i++) {
       if(recieved[i]) {
-        cerr << "Sending ack for seqNum: " << i << endl;
         sock.ackTo( (char *) &seqNum, sizeof(seqNum));
       }
+    }
+    //Increment seqNum as needed
+    while(recieved[seqNum]) {
+        seqNum++;
     }
   } 
    
