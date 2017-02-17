@@ -1,0 +1,29 @@
+tcpdump: listening on eno1, link-type EN10MB (Ethernet), capture size 262144 bytes
+1487298099.232276 IP (tos 0x0, ttl 64, id 13314, offset 0, flags [DF], proto TCP (6), length 60)
+    uw1-320-04.uwb.edu.52536 > uw1-320-02.uwb.edu.51020: Flags [S], cksum 0xf9fb (correct), seq 188909709, win 29200, options [mss 1460,sackOK,TS val 306035855 ecr 0,nop,wscale 7], length 0
+1487298099.232304 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto TCP (6), length 60)
+    uw1-320-02.uwb.edu.51020 > uw1-320-04.uwb.edu.52536: Flags [S.], cksum 0xe500 (incorrect -> 0x9650), seq 2487328591, ack 188909710, win 28960, options [mss 1460,sackOK,TS val 1103490867 ecr 306035855,nop,wscale 7], length 0
+1487298099.232482 IP (tos 0x0, ttl 64, id 13315, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-04.uwb.edu.52536 > uw1-320-02.uwb.edu.51020: Flags [.], cksum 0x3558 (correct), ack 1, win 229, options [nop,nop,TS val 306035855 ecr 1103490867], length 0
+1487298099.232511 IP (tos 0x0, ttl 64, id 13316, offset 0, flags [DF], proto TCP (6), length 62)
+    uw1-320-04.uwb.edu.52536 > uw1-320-02.uwb.edu.51020: Flags [P.], cksum 0x2c4a (correct), seq 1:11, ack 1, win 229, options [nop,nop,TS val 306035855 ecr 1103490867], length 10
+1487298099.232523 IP (tos 0x0, ttl 64, id 28771, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-02.uwb.edu.51020 > uw1-320-04.uwb.edu.52536: Flags [.], cksum 0xe4f8 (incorrect -> 0x3550), ack 11, win 227, options [nop,nop,TS val 1103490867 ecr 306035855], length 0
+1487298099.265598 IP (tos 0x0, ttl 64, id 28772, offset 0, flags [DF], proto TCP (6), length 62)
+    uw1-320-02.uwb.edu.51020 > uw1-320-04.uwb.edu.52536: Flags [P.], cksum 0xe502 (incorrect -> 0x2c39), seq 1:11, ack 11, win 227, options [nop,nop,TS val 1103490876 ecr 306035855], length 10
+1487298099.265617 IP (tos 0x0, ttl 64, id 28773, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-02.uwb.edu.51020 > uw1-320-04.uwb.edu.52536: Flags [F.], cksum 0xe4f8 (incorrect -> 0x353c), seq 11, ack 11, win 227, options [nop,nop,TS val 1103490876 ecr 306035855], length 0
+1487298099.265850 IP (tos 0x0, ttl 64, id 13317, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-04.uwb.edu.52536 > uw1-320-02.uwb.edu.51020: Flags [.], cksum 0x3533 (correct), ack 11, win 229, options [nop,nop,TS val 306035863 ecr 1103490876], length 0
+1487298099.265862 IP (tos 0x0, ttl 64, id 13318, offset 0, flags [DF], proto TCP (6), length 1502)
+    uw1-320-04.uwb.edu.52536 > uw1-320-02.uwb.edu.51020: Flags [P.], cksum 0xeaa2 (incorrect -> 0x7e33), seq 11:1461, ack 12, win 229, options [nop,nop,TS val 306035863 ecr 1103490876], length 1450
+1487298099.265867 IP (tos 0x0, ttl 64, id 13320, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-04.uwb.edu.52536 > uw1-320-02.uwb.edu.51020: Flags [F.], cksum 0x2f87 (correct), seq 1461, ack 12, win 229, options [nop,nop,TS val 306035863 ecr 1103490876], length 0
+1487298099.265887 IP (tos 0x0, ttl 64, id 28774, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-02.uwb.edu.51020 > uw1-320-04.uwb.edu.52536: Flags [.], cksum 0xe4f8 (incorrect -> 0x2f74), ack 1461, win 249, options [nop,nop,TS val 1103490876 ecr 306035863], length 0
+1487298099.265895 IP (tos 0x0, ttl 64, id 28775, offset 0, flags [DF], proto TCP (6), length 52)
+    uw1-320-02.uwb.edu.51020 > uw1-320-04.uwb.edu.52536: Flags [.], cksum 0xe4f8 (incorrect -> 0x2f73), ack 1462, win 249, options [nop,nop,TS val 1103490876 ecr 306035863], length 0
+
+12 packets captured
+12 packets received by filter
+0 packets dropped by kernel
