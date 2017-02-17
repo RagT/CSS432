@@ -1,0 +1,300 @@
+Try: 1, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=1526059 Mbps=351.802 I/Ocalls=46028
+ttcp-rbytes=67108824 time=1526775 Mbps=351.637 I/Ocalls=61068
+
+Try: 2, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=3011927 Mbps=178.248 I/Ocalls=46028
+ttcp-rbytes=67108824 time=3012724 Mbps=178.201 I/Ocalls=52085
+
+Try: 3, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=3043009 Mbps=176.428 I/Ocalls=46028
+ttcp-rbytes=67108824 time=3043773 Mbps=176.383 I/Ocalls=54186
+
+Try: 4, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2538097 Mbps=211.525 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2539466 Mbps=211.411 I/Ocalls=53583
+
+Try: 5, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2786161 Mbps=192.692 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2786871 Mbps=192.643 I/Ocalls=50694
+
+Try: 6, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2513624 Mbps=213.584 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2514442 Mbps=213.515 I/Ocalls=52811
+
+Try: 7, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2721471 Mbps=197.272 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2721783 Mbps=197.25 I/Ocalls=52718
+
+Try: 8, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2742882 Mbps=195.732 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2744216 Mbps=195.637 I/Ocalls=51350
+
+Try: 9, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2849999 Mbps=188.376 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2850741 Mbps=188.327 I/Ocalls=51337
+
+Try: 10, Running -l: 1458, -n: 46028, without -D
+ttcp-t: buflen=1458, nbuf=46028, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108824 time=2819340 Mbps=190.424 I/Ocalls=46028
+ttcp-rbytes=67108824 time=2820129 Mbps=190.371 I/Ocalls=50764
+
+Try: 1, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2818405 Mbps=190.486 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2819203 Mbps=190.432 I/Ocalls=50732
+
+Try: 2, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2964653 Mbps=181.089 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2964858 Mbps=181.076 I/Ocalls=53496
+
+Try: 3, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2841628 Mbps=188.929 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2842391 Mbps=188.878 I/Ocalls=52851
+
+Try: 4, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=1879933 Mbps=285.577 I/Ocalls=45996
+ttcp-rbytes=67108164 time=1880698 Mbps=285.461 I/Ocalls=58695
+
+Try: 5, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2373736 Mbps=226.169 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2374547 Mbps=226.092 I/Ocalls=56693
+
+Try: 6, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2144661 Mbps=250.326 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2145402 Mbps=250.24 I/Ocalls=57622
+
+Try: 7, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=1852775 Mbps=289.763 I/Ocalls=45996
+ttcp-rbytes=67108164 time=1853191 Mbps=289.698 I/Ocalls=59753
+
+Try: 8, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2698654 Mbps=198.938 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2699411 Mbps=198.882 I/Ocalls=52782
+
+Try: 9, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2348771 Mbps=228.573 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2349542 Mbps=228.498 I/Ocalls=54200
+
+Try: 10, Running -l: 1459, -n: 45996, without -D
+ttcp-t: buflen=1459, nbuf=45996, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108164 time=2198214 Mbps=244.228 I/Ocalls=45996
+ttcp-rbytes=67108164 time=2198784 Mbps=244.165 I/Ocalls=57390
+
+Try: 1, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=2399051 Mbps=223.78 I/Ocalls=45964
+ttcp-rbytes=67107440 time=2399136 Mbps=223.772 I/Ocalls=55245
+
+Try: 2, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=2789706 Mbps=192.443 I/Ocalls=45964
+ttcp-rbytes=67107440 time=2790215 Mbps=192.408 I/Ocalls=53955
+
+Try: 3, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=2083810 Mbps=257.634 I/Ocalls=45964
+ttcp-rbytes=67107440 time=2084613 Mbps=257.534 I/Ocalls=56394
+
+Try: 4, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=2473811 Mbps=217.017 I/Ocalls=45964
+ttcp-rbytes=67107440 time=2474552 Mbps=216.952 I/Ocalls=54923
+
+Try: 5, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=2763824 Mbps=194.245 I/Ocalls=45964
+ttcp-rbytes=67107440 time=2764542 Mbps=194.195 I/Ocalls=54164
+
+Try: 6, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=2584115 Mbps=207.754 I/Ocalls=45964
+ttcp-rbytes=67107440 time=2584899 Mbps=207.691 I/Ocalls=52773
+
+Try: 7, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=1828866 Mbps=293.548 I/Ocalls=45964
+ttcp-rbytes=67107440 time=1829042 Mbps=293.52 I/Ocalls=62813
+
+Try: 8, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=1612785 Mbps=332.877 I/Ocalls=45964
+ttcp-rbytes=67107440 time=1613042 Mbps=332.824 I/Ocalls=65276
+
+Try: 9, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=1610579 Mbps=333.333 I/Ocalls=45964
+ttcp-rbytes=67107440 time=1610825 Mbps=333.282 I/Ocalls=65245
+
+Try: 10, Running -l: 1460, -n: 45964, without -D
+ttcp-t: buflen=1460, nbuf=45964, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67107440 time=1618701 Mbps=331.661 I/Ocalls=45964
+ttcp-rbytes=67107440 time=1618914 Mbps=331.617 I/Ocalls=65096
+
+Try: 1, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=1611189 Mbps=333.21 I/Ocalls=45933
+ttcp-rbytes=67108113 time=1611503 Mbps=333.145 I/Ocalls=65152
+
+Try: 2, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=1613997 Mbps=332.631 I/Ocalls=45933
+ttcp-rbytes=67108113 time=1614250 Mbps=332.579 I/Ocalls=65245
+
+Try: 3, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=1615280 Mbps=332.366 I/Ocalls=45933
+ttcp-rbytes=67108113 time=1615316 Mbps=332.359 I/Ocalls=65382
+
+Try: 4, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=1608023 Mbps=333.866 I/Ocalls=45933
+ttcp-rbytes=67108113 time=1608328 Mbps=333.803 I/Ocalls=65066
+
+Try: 5, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=1615184 Mbps=332.386 I/Ocalls=45933
+ttcp-rbytes=67108113 time=1615313 Mbps=332.36 I/Ocalls=65181
+
+Try: 6, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=1622350 Mbps=330.918 I/Ocalls=45933
+ttcp-rbytes=67108113 time=1622586 Mbps=330.87 I/Ocalls=64987
+
+Try: 7, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=2001600 Mbps=268.218 I/Ocalls=45933
+ttcp-rbytes=67108113 time=2002270 Mbps=268.128 I/Ocalls=57517
+
+Try: 8, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=2633940 Mbps=203.826 I/Ocalls=45933
+ttcp-rbytes=67108113 time=2634745 Mbps=203.764 I/Ocalls=51582
+
+Try: 9, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=2309592 Mbps=232.45 I/Ocalls=45933
+ttcp-rbytes=67108113 time=2310302 Mbps=232.379 I/Ocalls=58320
+
+Try: 10, Running -l: 1461, -n: 45933, without -D
+ttcp-t: buflen=1461, nbuf=45933, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108113 time=2191952 Mbps=244.925 I/Ocalls=45933
+ttcp-rbytes=67108113 time=2192753 Mbps=244.836 I/Ocalls=55750
+
+Try: 1, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2890246 Mbps=185.752 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2890975 Mbps=185.705 I/Ocalls=52109
+
+Try: 2, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2747865 Mbps=195.377 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2748583 Mbps=195.326 I/Ocalls=51230
+
+Try: 3, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2570699 Mbps=208.842 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2571501 Mbps=208.777 I/Ocalls=54409
+
+Try: 4, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2754675 Mbps=194.894 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2755414 Mbps=194.842 I/Ocalls=53736
+
+Try: 5, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2872263 Mbps=186.915 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2873039 Mbps=186.865 I/Ocalls=50710
+
+Try: 6, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2937748 Mbps=182.749 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2938541 Mbps=182.699 I/Ocalls=50807
+
+Try: 7, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2631104 Mbps=204.047 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2631829 Mbps=203.991 I/Ocalls=51734
+
+Try: 8, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=3201613 Mbps=167.687 I/Ocalls=45902
+ttcp-rbytes=67108724 time=3202389 Mbps=167.647 I/Ocalls=54120
+
+Try: 9, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2539474 Mbps=211.41 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2540215 Mbps=211.348 I/Ocalls=54628
+
+Try: 10, Running -l: 1462, -n: 45902, without -D
+ttcp-t: buflen=1462, nbuf=45902, port=51020, sockbufsize=16384, tcp -> uw1-320-02
+16384
+ttcp-tbytes=67108724 time=2910972 Mbps=184.43 I/Ocalls=45902
+ttcp-rbytes=67108724 time=2911183 Mbps=184.416 I/Ocalls=52547
+

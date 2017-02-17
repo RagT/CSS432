@@ -1,0 +1,120 @@
+Try: 1, Running -l: 64, -n: 1048576, without -D
+    48426453 segments received
+    138403570 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2230256 Mbps=240.722 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2231509 Mbps=240.586 I/Ocalls=1054824
+    48439821 segments received
+    138449937 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 2, Running -l: 64, -n: 1048576, without -D
+    48439823 segments received
+    138449939 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2002310 Mbps=268.126 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2002780 Mbps=268.063 I/Ocalls=1054695
+    48453758 segments received
+    138496307 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 3, Running -l: 64, -n: 1048576, without -D
+    48453760 segments received
+    138496309 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=1998587 Mbps=268.625 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=1998812 Mbps=268.595 I/Ocalls=1054757
+    48467790 segments received
+    138542676 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 4, Running -l: 64, -n: 1048576, without -D
+    48467792 segments received
+    138542678 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2112587 Mbps=254.13 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2113158 Mbps=254.061 I/Ocalls=1054826
+    48481915 segments received
+    138589067 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 5, Running -l: 64, -n: 1048576, without -D
+    48481919 segments received
+    138589071 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2136762 Mbps=251.254 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2137230 Mbps=251.199 I/Ocalls=1054769
+    48495460 segments received
+    138635480 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 6, Running -l: 64, -n: 1048576, without -D
+    48495464 segments received
+    138635484 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2467217 Mbps=217.602 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2467746 Mbps=217.555 I/Ocalls=1054616
+    48507867 segments received
+    138681874 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 7, Running -l: 64, -n: 1048576, without -D
+    48507871 segments received
+    138681878 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2592022 Mbps=207.124 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2592460 Mbps=207.089 I/Ocalls=1054820
+    48520339 segments received
+    138728258 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 8, Running -l: 64, -n: 1048576, without -D
+    48520344 segments received
+    138728264 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=2347327 Mbps=228.716 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=2347832 Mbps=228.667 I/Ocalls=1054827
+    48533497 segments received
+    138774636 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 9, Running -l: 64, -n: 1048576, without -D
+    48533501 segments received
+    138774642 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=3242110 Mbps=165.593 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=3242571 Mbps=165.57 I/Ocalls=1054824
+    48544118 segments received
+    138821012 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
+Try: 10, Running -l: 64, -n: 1048576, without -D
+    48544122 segments received
+    138821018 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+ttcp-tbytes=67108864 time=1905522 Mbps=281.745 I/Ocalls=1048576
+ttcp-rbytes=67108864 time=1905746 Mbps=281.712 I/Ocalls=1054848
+    48558523 segments received
+    138867396 segments send out
+    12970 segments retransmited
+    0 bad segments received.
+
