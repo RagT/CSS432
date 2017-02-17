@@ -50,6 +50,8 @@ void client( char ipName[] ) {
 
   // Close socket to send FIN.
   close( clientSd );
+
+  
 }
 
 void usage( char progName[] ) {
