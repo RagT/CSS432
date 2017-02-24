@@ -39,7 +39,7 @@ int main(int argc, char const *argv[])
 
 	//Build socket address
 	sockaddr_in server;
-	bzero((char *) server, sizeof(server));
+	bzero((char *) &server, sizeof(server));
 	server.sin_family =AF_INET;
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
 	server.sin_port = htons(portnumber);
@@ -59,9 +59,10 @@ int main(int argc, char const *argv[])
 	listen(serverSd, MAX_CONNECTIONS);
 
 	while(true) {
-		//Step 2: Accept a new connection from a client through accept().
-		sockaddr_in client;
-        int newSd = accept(serverSd, (sockaddr *) &client, sizeof(client));
+		    //Step 2: Accept a new connection from a client through accept().
+		    sockaddr_in client;
+        socklen_t clientSize = sizeof(client);
+        int newSd = accept(serverSd, (sockaddr *) &client, &clientSize);
 
         //Step 3: Spawn a child process through fork().
         //The parent closes this connection and goes back to the top of the loop, 
@@ -73,7 +74,7 @@ int main(int argc, char const *argv[])
 
         	//Step 4: Retrieve the client's IP address 
         	//and port of this connection through getpeername().
-        	getpeername(newSd, (sockaddr *)&client, sizeof(client));
+        	getpeername(newSd, (sockaddr *)&client, &clientSize);
 
         	char * clientIp = inet_ntoa(client.sin_addr);
         	int clientPort = ntohs(client.sin_port);
@@ -83,8 +84,9 @@ int main(int argc, char const *argv[])
         	//gethostbyaddr().
         	unsigned int addr = inet_addr(clientIp);
 
-        	struct hostent* hostPtr = gethostbyaddr((const void *) addr, 
-        							sizeof(unsigned int), AF_INET);
+        	struct hostent* hostPtr = gethostbyaddr((const void *) &addr, 
+                                    sizeof(unsigned int), AF_INET);
+                                                     
         	//Unable to gethostbyaddr
         	if( hostPtr == NULL) {
         		cout << "gethostbyaddr error for client(" << clientIp << "): 1" << endl;
@@ -101,6 +103,7 @@ int main(int argc, char const *argv[])
         		while(*aliases != NULL) {
         			cout << "alias: " << *aliases << endl;
         			numAliases++;
+              aliases++;
         		}
         		if(numAliases == 0){
         			cout << "alias: none" << endl;
@@ -119,7 +122,7 @@ int main(int argc, char const *argv[])
         			//of addresses retrieved via gethostbyaddr().
 
         			for(listSize = 0; addressList[listSize] != NULL; listSize++) {
-        				registeredIp = inet_ntoa((in_addr *) addressList[i]);
+        				registeredIp = inet_ntoa(*((in_addr *) addressList[listSize]));
         				cout << "ip address: " << registeredIp << " ... hit!" << endl;
         				if(registeredIp == clientIp) {
         					isHonest = true;
