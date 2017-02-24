@@ -111,7 +111,7 @@ int main(int argc, char const *argv[])
         			char **addressList = hostPtr->h_addr_list;
         			char * registeredIp = NULL;
         			int listSize; //size of address list
-        			bool isHonest - false;
+        			bool isHonest = false;
 
         			//Step 7: Decide whether this client is a honest or a spoofing client 
         			//by matching its IP address retrieved from getpeername() and the list 
