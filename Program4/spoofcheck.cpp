@@ -15,6 +15,7 @@ by looking for IP address spoofing.
 #include <unistd.h>       // read, write, close
 #include <string.h>       // bzero
 #include <netinet/tcp.h>  // TCP_NODELAY
+#include <stdlib.h>
 #include <iostream>      // cerr
 using namespace std;
 
