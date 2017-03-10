@@ -26,7 +26,25 @@ using namespace std;
 
 class FTPMain {
 public:
+	FTPMain();
+
+	//FTP Commands (Return server response as a string)
+	string open(string host, string port);
+	string user(string username);
+	string password(string password);
+	string cd(string dir);
+	string ls();
+	string get(filename);
+	string put(filename);
+	string close();
+	string quit();
 
 private:
+	static const int DEFAULT_PORT = 21; //Default server port for FTP
+	static const int BUF_SIZE = 1448;
 
+	int serverPortNum;
+	int clientSd;
+	struct hostent * host;
+	struct sockaddr_in sendAddr;
 }
