@@ -1,6 +1,6 @@
-//This program parses user input and calls FTPClient commands
+//This program executes FTPUI code
 
-#include "FTPClient.h"
+#include "FTPUI.h"
 using namespace std;
 
 int main(int argc, char const *argv[])
