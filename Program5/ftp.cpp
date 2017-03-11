@@ -61,9 +61,9 @@ void getPassword() {
 		char password[20];
 		cin >> password;
 		char passwordCmd[27];
-		strcat(passwordCmd, "PASS ");
+		strcpy(passwordCmd, "PASS ");
 		strcat(passwordCmd, password);
-		strcat(passwordCmd, "\r\n");
+		strcat(passwordCmd, "\r\n"); //CRLF
 
 		//Send password to server
 		write(clientSd, (char *)&passwordCmd, strlen(passwordCmd));
