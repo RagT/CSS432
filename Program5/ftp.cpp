@@ -55,9 +55,10 @@ char[] getServerResponse() {
 void getPassword() {
 	while(true) {
 		cout << "Password: ";
-		string password = "";
+		char password[30];
 		cin >> password;
-		string passwordCmd = "PASS ";
+		string passwordCmd[40];
+		strcat(passwordCmd, "PASS ");
 		strcat(passwordCmd, password);
 		strcat(passwordCmd, "\r\n");
 
@@ -67,8 +68,10 @@ void getPassword() {
 		string response = getServerResponse();
 		cout << response;
 
+		string error = "501";
+
 		//If it is a valid password break out of loop
-		if(!strstr(response.c_str(), "501".c_str())) {
+		if(!strstr(response.c_str(), error.c_str())) {
 			break;
 		}
 	}
