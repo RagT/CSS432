@@ -45,6 +45,26 @@ int main(int argc, char *argv[]) {
 	ftpServerName = argv[1];
 	logIn();
 
+	cout << endl;
+
+	//Command input loop
+	while(true) {
+		//Prompt user for command
+		cout << PROMPT;
+		string command;
+		cin >> command;
+
+		// switch(command) {
+		// 	case "ls":
+		// 		cout << "command is ls" << endl;
+		// 		break;
+		// 	default:
+		// 		cout << "Invalid command." << endl;
+		// 		break; 
+		// }
+
+	}
+
 	return 0;
 }
 
@@ -55,6 +75,7 @@ char* getServerResponse() {
 	return buff;
 }
 
+//Prompts user for their password until correct password is recieved.
 void getPassword() {
 	while(true) {
 		cout << "Password: ";
@@ -80,6 +101,7 @@ void getPassword() {
 	}
 }
 
+//Socket polling function after user enters correct password
 int pollSocket() {
 	struct pollfd ufds;
 	ufds.fd = clientSd;               // a socket descriptor to exmaine for read
@@ -135,7 +157,7 @@ void logIn() {
 
     //Poll the server
     while(pollSocket() == 1) {
-      response = getServerResponse();
+        response = getServerResponse();
     	cout << response << endl;
     }
     if(pollSocket() == -1) {
