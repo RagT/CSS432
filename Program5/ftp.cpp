@@ -95,7 +95,7 @@ void logIn() {
 		cerr << "Error creating socket to server" << endl;
 		exit(0);
 	}
-
+	
 	struct hostent *host = gethostbyname(ftpServerName);
 	struct sockaddr_in addr;
     bzero((char*)&addr, sizeof(addr));
