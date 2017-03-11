@@ -27,10 +27,13 @@ const string PROMPT = "ftp> ";
 int clientSd = -1;
 const int CTRL_PORT = 21; //Port for FTP communication
 const int BUF_SIZE = 1500;
+char * response;
 
+char* getServerResponse();
+void getPassword();
+void logIn();
 
-
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 	//Check for valid argument count
 	if(argc != 2) {
 		cerr << "Invalid number of arguments." << endl;
@@ -46,7 +49,7 @@ int main(int argc, char const *argv[]) {
 }
 
 //Reads response from server into char[] buffer and returns the buffer
-char[] getServerResponse() {
+char* getServerResponse() {
 	char buff[BUF_SIZE];
 	read(clientSd, (char*)buff, sizeof(buff));
 	return buff;
@@ -55,9 +58,9 @@ char[] getServerResponse() {
 void getPassword() {
 	while(true) {
 		cout << "Password: ";
-		char password[30];
+		char password[20];
 		cin >> password;
-		string passwordCmd[40];
+		char passwordCmd[27];
 		strcat(passwordCmd, "PASS ");
 		strcat(passwordCmd, password);
 		strcat(passwordCmd, "\r\n");
@@ -65,7 +68,7 @@ void getPassword() {
 		//Send password to server
 		write(clientSd, (char *)&passwordCmd, strlen(passwordCmd));
 		//print response
-		string response = getServerResponse();
+		response = getServerResponse();
 		cout << response;
 
 		string error = "501";
@@ -108,29 +111,32 @@ void logIn() {
     }
 
     //Print welcome message from server
-    cout << getServerResponse();
+    response = getServerResponse();
+    cout << response;
 
     //Log in user to server
 
     //Request username
     cout << "Name(" << ftpServerName << ":" << getenv("USER") << "): ";
-    string name = "";
+    char name[20];
     cin >> name;
-    string  userCmd = "";
+    char userCmd[27];
     strcpy(userCmd, "USER ");
     strcat(userCmd, name);
     strcat(user, "\r\n"); //CRLF
 
     //Send username to server and recieve the acknowledgement
     write(clientSd, (char*)&userCmd, strlen(userCmd));
-    cout << getServerResponse();
+    response = getServerResponse();
+    cout << response;
 
     //Enter password
     getPassword();
 
     //Poll the server
     while(pollSocket() == 1) {
-    	cout << getServerResponse() << endl;
+      response = getServerResponse();
+    	cout << response << endl;
     }
     if(pollSocket() == -1) {
     	cout << "Can't poll socket" << endl;
