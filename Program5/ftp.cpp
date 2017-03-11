@@ -74,7 +74,7 @@ void getPassword() {
 		string error = "501";
 
 		//If it is a valid password break out of loop
-		if(!strstr(response.c_str(), error.c_str())) {
+		if(!strstr(response, error.c_str())) {
 			break;
 		}
 	}
@@ -123,7 +123,7 @@ void logIn() {
     char userCmd[27];
     strcpy(userCmd, "USER ");
     strcat(userCmd, name);
-    strcat(user, "\r\n"); //CRLF
+    strcat(userCmd, "\r\n"); //CRLF
 
     //Send username to server and recieve the acknowledgement
     write(clientSd, (char*)&userCmd, strlen(userCmd));
