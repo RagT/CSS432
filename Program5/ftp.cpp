@@ -26,16 +26,22 @@ using namespace std;
 char * ftpServerName; 
 const string PROMPT = "ftp> ";
 int clientSd = -1;
+int pasvSd = -1;
+int clientFd = -1;
 const int CTRL_PORT = 21; //Port for FTP communication
-char * response;
 bool loggedIn = false;
 const int BUF_SIZE = 8192;
 char buff[BUF_SIZE];
+struct hostent *host;
+//variables to store server response data when going into passive mode
+int A1, A2, A3, A4, a1, a2; 
 
-char* getServerResponse();
+void getServerResponse();
 void getPassword();
 void logIn();
 void checkLogIn();
+void close();
+void pasv();
 
 //Utility function for splitting strings by spaces
 vector<string> split(string str) {
@@ -67,19 +73,52 @@ int main(int argc, char *argv[]) {
 		cout << PROMPT;
 		string command; //string containing command
 		getline(cin, command);
-
+		if(command.empty()) {
+			continue;
+		}
 		//vector to store each part of command 
 		vector<string> splitCommand = split(command);
 		string commandType = splitCommand[0];
 
 		if(commandType == "open") {
-			logIn();
+			if(!loggedIn) {
+				logIn();
+			} else {
+				cout << "You are already logged in." << endl;
+			}
 		} else if(commandType == "ls") {
 			checkLogIn();
+			if(!loggedIn) {
+				continue;
+			}
+			pasv();
+			char listCmd[BUF_SIZE];
+			strcpy(listCmd, "LIST");
+			strcat(listCmd, "\r\n");
+			write(clientSd, (char *) &listCmd, strlen(listCmd));
+			string directoryList = "";
+
+			char dataBuff[BUF_SIZE];
+			
+			//list of directories and files sent through passive connection
+			while(read(pasvSd, (char *)&dataBuff, sizeof(dataBuff)) > 0) {
+				directoryList.append(dataBuff);
+			}
+
+			getServerResponse();
+			cout << buff;
+			getServerResponse();
+			cout << buff;
+			cout << directoryList << endl;
+			close(pasvSd);
+
 		}  else if(commandType == "cd") {
 			checkLogIn();
 			if(splitCommand.size() != 2) {
 				cout << "Usage: cd subdir" << endl;
+				continue;
+			}
+			if(!loggedIn) {
 				continue;
 			}
 			char cdCommand[BUF_SIZE];
@@ -89,23 +128,34 @@ int main(int argc, char *argv[]) {
 
 			//send command to server
 			write(clientSd, (char *)&cdCommand, strlen(cdCommand));
-			response = getServerResponse();
-			cout << response;
+			getServerResponse();
+			cout << buff;
 			continue;
 
 		} else if( commandType == "get") {
 			checkLogIn();
+			if(!loggedIn) {
+				continue;
+			}
 		} else if(commandType == "put") {
 			checkLogIn();
+			if(!loggedIn) {
+				continue;
+			}
 		} else if(commandType == "close") {
 			//Close connection to server but keep ftp client running
-			checkLogIn();
-			loggedIn = false;
+			//Check if connection is open first
+			checkLogIn(); 
+			if(loggedIn) {
+				close();
+				loggedIn = false;
+			}
 		} else if(commandType == "quit") {
 			//log out of server and quit ftp client
-
-			//Exit program
-			break;
+			if(loggedIn) {
+				close(); //close connection with ftp server
+			}
+			break;   //Exit program
 		} else {
 			cout << "Invalid command" << endl;
 		}
@@ -120,25 +170,27 @@ void checkLogIn() {
 	}
 }
 
-//Reads response from server into char[] buffer and returns the buffer
-char* getServerResponse() {
+//Reads response from server into char[] buffer
+void getServerResponse() {
+	//Clear the buffer
 	bzero(buff, sizeof(buff));
+	//Read data from server into buffer
 	read(clientSd, buff, sizeof(buff));
 	string error = "421";
 	if(strstr(buff, error.c_str())) {
-		cout << "There was a problem with the server." << endl;
+		cerr << "There was a problem with the server." << endl;
+		close();
 		exit(0);
 	}
-	return buff;
 }
 
 //Prompts user for their password until correct password is recieved.
 void getPassword() {
 	while(true) {
 		cout << "Password: ";
-		char password[20];
+		char password[BUF_SIZE];
 		cin >> password;
-		char passwordCmd[27];
+		char passwordCmd[BUF_SIZE];
 		strcpy(passwordCmd, "PASS ");
 		strcat(passwordCmd, password);
 		strcat(passwordCmd, "\r\n"); //CRLF
@@ -146,17 +198,17 @@ void getPassword() {
 		//Send password to server
 		write(clientSd, (char *)&passwordCmd, strlen(passwordCmd));
 		//print response
-		response = getServerResponse();
-		cout << response;
-		cout << endl;
+		getServerResponse();
+		cout << buff;
 
 		string error = "501";
 
 		//If it is a valid password break out of loop
-		if(!strstr(response, error.c_str())) {
+		if(!strstr(buff, error.c_str())) {
 			break;
 		}
 	}
+	//Clear buffer of newline chars so getline() can work properly
 	cin.ignore();
 }
 
@@ -177,7 +229,7 @@ void logIn() {
 		exit(0);
 	}
 	
-	struct hostent *host = gethostbyname(ftpServerName);
+	host = gethostbyname(ftpServerName);
 	struct sockaddr_in addr;
     bzero((char*)&addr, sizeof(addr));
     addr.sin_family = AF_INET;
@@ -192,35 +244,76 @@ void logIn() {
     }
 
     //Print welcome message from server
-    response = getServerResponse();
-    cout << response;
+    getServerResponse();
+    cout << buff;
 
     //Log in user to server
 
     //Request username
     cout << "Name(" << ftpServerName << ":" << getenv("USER") << "): ";
-    char name[20];
+    char name[BUF_SIZE];
     cin >> name;
-    char userCmd[27];
+    char userCmd[BUF_SIZE];
     strcpy(userCmd, "USER ");
     strcat(userCmd, name);
     strcat(userCmd, "\r\n"); //CRLF
 
     //Send username to server and recieve the acknowledgement
     write(clientSd, (char*)&userCmd, strlen(userCmd));
-    response = getServerResponse();
-    cout << response;
+    getServerResponse();
+    cout << buff;
 
     //Enter password
     getPassword();
 
     //Poll the server
     while(pollSocket() == 1) {
-        response = getServerResponse();
-    	cout << response << endl;
+        getServerResponse();
+    	cout << buff;
     }
     if(pollSocket() == -1) {
     	cout << "Can't poll socket" << endl;
     }
     loggedIn = true;
+}
+
+void close() {
+	char closeCmd[BUF_SIZE];
+	strcpy(closeCmd, "QUIT");
+	strcat(closeCmd, "\r\n");
+	write(clientSd, (char*)&closeCmd, strlen(closeCmd));
+	getServerResponse();
+	cout << buff;
+	shutdown(clientSd, SHUT_WR); //close socket
+}
+
+//Passive mode connection with FTP server
+void pasv() {
+	char passiveCmd[BUF_SIZE];
+	strcpy(passiveCmd, "PASV");
+	strcat(passiveCmd, "\r\n");
+	write(clientSd, (char*)&passiveCmd, strlen(passiveCmd));
+	getServerResponse();
+	cout << buff;
+
+	sscanf(buff, "227 Entering Passive Mode (%d,%d,%d,%d,%d,%d)", 
+			&A1, &A2, &A3, &A4, &a1, &a2);
+
+	int serverPortNum = (a1 * 256) + a2;
+	struct sockaddr_in serverAddress;
+	bzero((char*) &serverAddress, sizeof(serverAddress));
+	serverAddress.sin_family = AF_INET;
+	serverAddress.sin_port = htons(serverPortNum);
+    serverAddress.sin_addr.s_addr = 
+        inet_addr(inet_ntoa(*(struct in_addr*)*host->h_addr_list));
+
+	pasvSd = socket(AF_INET, SOCK_STREAM, 0);
+	if(pasvSd < 0) {
+		cerr << "Error creating passive socket" << endl;
+	}
+
+	//passive connection to ftp server
+	if(connect(pasvSd, (struct sockaddr*) &serverAddress, sizeof(serverAddress)) < 0) {
+		cerr << "Can't establish passive connection" << endl;
+	}
 }
