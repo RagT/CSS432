@@ -180,6 +180,15 @@ int main(int argc, char *argv[]) {
 				close(); //close connection with ftp server
 			}
 			break;   //Exit program
+		} else if(commandType == "help"){
+			cout << "FTP Client commands:" << endl;
+			cout << "open:  Opens connection to ftp server" << endl;
+			cout << "cd subdir:   Change directory to subdirectory" << endl;
+			cout << "ls:	 List all files and subdirectories in current directory" << endl;
+			cout << "get filename:   Get specified file from server to local system." << endl;
+			cout << "put:   Requests filename of local file and new filename. Places copy of local file with the new filename." << endl;
+			cout << "close:   Closes connection to ftp server." << endl;
+			cout << "quit :	 Closes connection to ftp server and quits this client program" << endl;
 		} else {
 			cout << "Invalid command" << endl;
 		}
