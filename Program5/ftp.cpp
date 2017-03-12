@@ -45,6 +45,7 @@ void close();
 bool pasv();
 void setTypeToI();
 void get(string filename);
+void put();
 
 //Utility function for splitting strings by spaces
 vector<string> split(string str) {
@@ -164,6 +165,7 @@ int main(int argc, char *argv[]) {
 				cout << "Usage: just type put" << endl;
 				continue;
 			}
+			put();
 		} else if(commandType == "close") {
 			//Close connection to server but keep ftp client running
 			//Check if connection is open first
@@ -389,6 +391,55 @@ void get(string filename) {
 		exit(0);
 	}
 	close(pasvSd);
+	getServerResponse();
+	cout << buff;
+	getServerResponse();
+	cout << buff;
+}
+
+void put() {
+	//get filename and newFilename from user
+	cout << "(local file) ";
+	string filename;
+	getline(cin, filename);
+	cout << "(remote file) ";
+	string newFilename;
+	getline(cin, newFilename);  
+
+	//Set type to 'I' (IMAGE aka binary)
+	setTypeToI();
+	//establish pasv connection
+	if(!pasv()) {
+		return;
+	}
+
+	if((pid = fork()) < 0) {
+		cerr << "put: fork failed" << endl;
+		return;
+	} else if(pid > 0) {
+		//parent process
+		char putCmd[BUF_SIZE];
+		strcpy(putCmd, "STOR ");
+		strcat(putCmd, newFilename.c_str());
+		strcat(putCmd, "\r\n");
+		write(clientSd, (char *) &putCmd, strlen(putCmd));
+		wait(NULL); //wait for child
+	} else {
+		//child process
+		int file = open(filename.c_str(), O_RDONLY);
+		while(true) {
+			int n = read(file, buff, sizeof(buff));
+			if(n == 0){
+				break;
+			}
+			write(pasvSd, buff, n);
+		}
+		close(file);
+		exit(0);	
+	}
+	close(pasvSd);
+	getServerResponse();
+	cout << buff;
 	getServerResponse();
 	cout << buff;
 }
