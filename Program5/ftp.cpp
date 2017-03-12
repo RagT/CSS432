@@ -19,19 +19,34 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
+#include <vector>
+#include <sstream>
 using namespace std;
 
 char * ftpServerName; 
 const string PROMPT = "ftp> ";
 int clientSd = -1;
 const int CTRL_PORT = 21; //Port for FTP communication
-const int BUF_SIZE = 1500;
 char * response;
+bool loggedIn = false;
+const int BUF_SIZE = 8192;
+char buff[BUF_SIZE];
 
 char* getServerResponse();
 void getPassword();
 void logIn();
+void checkLogIn();
+
+//Utility function for splitting strings by spaces
+vector<string> split(string str) {
+	vector<string> splitArr;
+	char * token = strtok((char *) str.c_str(), " ");
+	while(token != NULL) {
+		splitArr.push_back(token);
+		token = strtok(NULL, " ");
+	} 
+	return splitArr;
+}
 
 int main(int argc, char *argv[]) {
 	//Check for valid argument count
@@ -43,7 +58,6 @@ int main(int argc, char *argv[]) {
 	}
 
 	ftpServerName = argv[1];
-	logIn();
 
 	cout << endl;
 
@@ -51,27 +65,70 @@ int main(int argc, char *argv[]) {
 	while(true) {
 		//Prompt user for command
 		cout << PROMPT;
-		string command;
-		cin >> command;
+		string command; //string containing command
+		getline(cin, command);
 
-		// switch(command) {
-		// 	case "ls":
-		// 		cout << "command is ls" << endl;
-		// 		break;
-		// 	default:
-		// 		cout << "Invalid command." << endl;
-		// 		break; 
-		// }
+		//vector to store each part of command 
+		vector<string> splitCommand = split(command);
+		string commandType = splitCommand[0];
 
+		if(commandType == "open") {
+			logIn();
+		} else if(commandType == "ls") {
+			checkLogIn();
+		}  else if(commandType == "cd") {
+			checkLogIn();
+			if(splitCommand.size() != 2) {
+				cout << "Usage: cd subdir" << endl;
+				continue;
+			}
+			char cdCommand[BUF_SIZE];
+			strcpy(cdCommand, "CWD ");
+			strcat(cdCommand, splitCommand[1].c_str());
+			strcat(cdCommand, "\r\n");
+
+			//send command to server
+			write(clientSd, (char *)&cdCommand, strlen(cdCommand));
+			response = getServerResponse();
+			cout << response;
+			continue;
+
+		} else if( commandType == "get") {
+			checkLogIn();
+		} else if(commandType == "put") {
+			checkLogIn();
+		} else if(commandType == "close") {
+			//Close connection to server but keep ftp client running
+			checkLogIn();
+			loggedIn = false;
+		} else if(commandType == "quit") {
+			//log out of server and quit ftp client
+
+			//Exit program
+			break;
+		} else {
+			cout << "Invalid command" << endl;
+		}
 	}
 
 	return 0;
 }
 
+void checkLogIn() {
+	if(!loggedIn) {
+		cout << "Please log in with the 'open' command first" << endl;
+	}
+}
+
 //Reads response from server into char[] buffer and returns the buffer
 char* getServerResponse() {
-	char buff[BUF_SIZE];
-	read(clientSd, (char*)buff, sizeof(buff));
+	bzero(buff, sizeof(buff));
+	read(clientSd, buff, sizeof(buff));
+	string error = "421";
+	if(strstr(buff, error.c_str())) {
+		cout << "There was a problem with the server." << endl;
+		exit(0);
+	}
 	return buff;
 }
 
@@ -91,6 +148,7 @@ void getPassword() {
 		//print response
 		response = getServerResponse();
 		cout << response;
+		cout << endl;
 
 		string error = "501";
 
@@ -99,6 +157,7 @@ void getPassword() {
 			break;
 		}
 	}
+	cin.ignore();
 }
 
 //Socket polling function after user enters correct password
@@ -163,4 +222,5 @@ void logIn() {
     if(pollSocket() == -1) {
     	cout << "Can't poll socket" << endl;
     }
+    loggedIn = true;
 }
