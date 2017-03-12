@@ -35,13 +35,16 @@ char buff[BUF_SIZE];
 struct hostent *host;
 //variables to store server response data when going into passive mode
 int A1, A2, A3, A4, a1, a2; 
+int pid; //for fork()
 
 void getServerResponse();
 void getPassword();
 void logIn();
 void checkLogIn();
 void close();
-void pasv();
+bool pasv();
+void setTypeToI();
+void get(string filename);
 
 //Utility function for splitting strings by spaces
 vector<string> split(string str) {
@@ -91,25 +94,36 @@ int main(int argc, char *argv[]) {
 			if(!loggedIn) {
 				continue;
 			}
-			pasv();
-			char listCmd[BUF_SIZE];
-			strcpy(listCmd, "LIST");
-			strcat(listCmd, "\r\n");
-			write(clientSd, (char *) &listCmd, strlen(listCmd));
-			string directoryList = "";
-
-			char dataBuff[BUF_SIZE];
-			
-			//list of directories and files sent through passive connection
-			while(read(pasvSd, (char *)&dataBuff, sizeof(dataBuff)) > 0) {
-				directoryList.append(dataBuff);
+			if(!pasv()) {
+				continue;
 			}
-
-			getServerResponse();
-			cout << buff;
-			getServerResponse();
-			cout << buff;
-			cout << directoryList << endl;
+			string directoryList;
+			if((pid = fork()) < 0) {
+				cerr << "Fork failed." << endl;
+				continue;
+			} else if (pid > 0) {
+				//parent process
+				char listCmd[BUF_SIZE];
+				strcpy(listCmd, "LIST");
+				strcat(listCmd, "\r\n");
+				write(clientSd, (char *) &listCmd, strlen(listCmd));
+				wait(NULL); //wait for child process
+			} else {
+				//child process
+				
+				//clear buffer before writing to it
+				bzero(buff, sizeof(buff));
+				//list of directories and files sent through passive connection
+				while(read(pasvSd, (char *)&buff, sizeof(buff)) > 0) {
+					directoryList.append(buff);
+				}
+				getServerResponse();
+				cout << buff;
+				getServerResponse();
+				cout << buff;
+				cout << directoryList << endl;
+				exit(0);
+			}
 			close(pasvSd);
 
 		}  else if(commandType == "cd") {
@@ -137,9 +151,17 @@ int main(int argc, char *argv[]) {
 			if(!loggedIn) {
 				continue;
 			}
+			if(splitCommand.size() != 2) {
+				cout << "Usage: requires 1 argument, the file to get." << endl;
+			}
+			get(splitCommand[1]);
 		} else if(commandType == "put") {
 			checkLogIn();
 			if(!loggedIn) {
+				continue;
+			}
+			if(splitCommand.size() != 1) {
+				cout << "Usage: just type put" << endl;
 				continue;
 			}
 		} else if(commandType == "close") {
@@ -287,8 +309,8 @@ void close() {
 	shutdown(clientSd, SHUT_WR); //close socket
 }
 
-//Passive mode connection with FTP server
-void pasv() {
+//Passive mode connection with FTP server returns false if there is an error
+bool pasv() {
 	char passiveCmd[BUF_SIZE];
 	strcpy(passiveCmd, "PASV");
 	strcat(passiveCmd, "\r\n");
@@ -310,10 +332,63 @@ void pasv() {
 	pasvSd = socket(AF_INET, SOCK_STREAM, 0);
 	if(pasvSd < 0) {
 		cerr << "Error creating passive socket" << endl;
+		return false;
 	}
 
 	//passive connection to ftp server
 	if(connect(pasvSd, (struct sockaddr*) &serverAddress, sizeof(serverAddress)) < 0) {
 		cerr << "Can't establish passive connection" << endl;
+		return false;
 	}
+	return true;
+}
+
+//Sets data sending type to binary for file retrieval
+void setTypeToI() {
+	char typeCmd[BUF_SIZE];
+	strcpy(typeCmd, "TYPE I");
+	strcat(typeCmd, "\r\n");
+	write(clientSd, (char*) &typeCmd, strlen(typeCmd));
+	getServerResponse();
+	cout << buff;
+}
+
+//Get command implementation
+void get(string filename) {
+	//Set type to 'I' (IMAGE aka binary)
+	setTypeToI();
+	//establish pasv connection
+	if(!pasv()) {
+		return;
+	}
+	int file;
+	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+	if((pid = fork()) < 0) {
+		cerr << "Get: fork failed" << endl;
+		return;
+	} else if(pid > 0) {
+		//parent process
+		char retrieveCmd[BUF_SIZE];
+		strcpy(retrieveCmd, "RETR ");
+		strcat(retrieveCmd, filename.c_str());
+		strcat(retrieveCmd, "\r\n");
+		write(clientSd, (char*) &retrieveCmd, strlen(retrieveCmd));
+		wait(NULL); //wait for child
+	} else {
+		//child process
+		file = open(filename.c_str(), O_WRONLY | O_CREAT, mode);
+			bzero(buff, sizeof(buff));
+		while(true) {
+			int n = read(pasvSd, buff, sizeof(buff));
+			if(n == 0) {
+				break;
+			}
+			write(file, buff, n);
+		}
+		close(file);
+		exit(0);
+	}
+	close(pasvSd);
+	getServerResponse();
+	cout << buff;
 }
