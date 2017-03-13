@@ -46,6 +46,7 @@ bool pasv();
 void setTypeToI();
 void get(string filename);
 void put();
+bool fileExists(string& filename);
 
 //Utility function for splitting strings by spaces
 vector<string> split(string str) {
@@ -372,6 +373,7 @@ void get(string filename) {
 	if(!pasv()) {
 		return;
 	}
+	bool error = false;
 	int file;
 	mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 	if((pid = fork()) < 0) {
@@ -386,6 +388,18 @@ void get(string filename) {
 		write(clientSd, (char*) &retrieveCmd, strlen(retrieveCmd));
 		wait(NULL); //wait for child
 	} else {
+		//Check for error
+		while(pollSocket() == 1) { //Check if there is a response
+			getServerResponse();
+			cout << buff;
+
+			string errorCode = "550";
+			if(strstr(buff, errorCode.c_str())) {
+				error = true;
+				exit(0);
+				return;
+			}
+		}
 		//child process
 		file = open(filename.c_str(), O_WRONLY | O_CREAT, mode);
 			bzero(buff, sizeof(buff));
@@ -400,10 +414,11 @@ void get(string filename) {
 		exit(0);
 	}
 	close(pasvSd);
-	getServerResponse();
-	cout << buff;
-	getServerResponse();
-	cout << buff;
+}
+
+bool fileExists(string &filename) {
+	ifstream ifile(filename.c_str());
+	return ifile;
 }
 
 void put() {
@@ -414,6 +429,11 @@ void put() {
 	cout << "(remote file) ";
 	string newFilename;
 	getline(cin, newFilename);  
+
+	if(!fileExists(filename)) {
+		cout << filename  << " does not exist." << endl; 
+		return;
+	}
 
 	//Set type to 'I' (IMAGE aka binary)
 	setTypeToI();
