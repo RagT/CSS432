@@ -1,1 +1,0 @@
-Robert Boyer's Test file for ftp put command.
